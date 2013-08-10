@@ -1,0 +1,8 @@
+services:
+   wingr.admin.users:
+      class: Wingr\AppBundle\Admin\UserAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: Manage User Settings, label: Users }
+      arguments: [null, Wingr\AppBundle\Entity\User, SonataAdminBundle:CRUD]
+      calls:
+        - [setUserManager, [@fos_user.user_manager]]
