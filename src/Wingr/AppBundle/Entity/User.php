@@ -39,7 +39,70 @@ class User extends BaseUser
      * )
      */
     private $name;
-      
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name_on_card", type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Your name cannot contain a number",
+     *     groups={"Registration", "Update", "ReferFriend"}
+     * )
+     */
+    private $nameOnCard;    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="billing_address", type="string", length=255, nullable=true)
+     */
+    private $billingAddress;    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="billing_city", type="string", length=255, nullable=true)
+     */
+    private $billingCity;    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="billing_zipcode", type="string", length=10, nullable=true)
+     */
+    private $billingZipcode;    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="is_paid", type="boolean", nullable=false)
+     */
+    private $isPaid = false;    
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="gender", type="integer", length=1, nullable=true)
+     */
+    private $gender;    
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="looking_for", type="integer", length=1, nullable=true)
+     */
+    private $lookingFor;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="interested_in", type="json_array", nullable=true)
+     */
+    private $interestedIn;
+    
+    
     /**
      * @var DateTime
      * @Gedmo\Timestampable(on="create")

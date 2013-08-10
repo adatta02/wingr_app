@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Wingr\AppBundle\Type\Form\RegistrationType;
+use Wingr\AppBundle\Entity\User;
+
 class DefaultController extends Controller
 {
     /**
@@ -14,6 +17,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array('name' => "");
+    	$user = new User();
+    	$form = $this->createForm(new RegistrationType("Wingr\\AppBundle\\Entity\\User"));
+    	
+        return array("form" => $form->createView());
     }
 }

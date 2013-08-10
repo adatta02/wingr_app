@@ -1,0 +1,62 @@
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <div class="control-group-errors">
+        <div class="alert alert-error">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+{% block form_label %}
+{% spaceless %}
+    {% if label is not sameas(false) %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ label|trans({}, translation_domain)|raw }}             
+        </label>
+    {% endif %}        
+
+{% endspaceless %}
+{% endblock form_label %}
+
+{% block form_row %}
+{% set attr = {"class": ""}|merge(attr) %}
+<div class="{{ attr["class"] }} control-group {% if errors %}error{% endif %}">
+    {{ form_errors(form) }}
+    
+    {% if required %}{% endif %}
+    
+    {{ form_label(form, label|default(null), {'label_attr': {'class': 'control-label'}}) }}    
+    
+    <div class="controls">
+        {{ form_widget(form) }}
+    </div>    
+</div>
+{% endblock form_row %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}    
+    <div {{ block('widget_container_attributes') }}>
+        <ul class="control-group-expanded-choice">
+        {% for child in form %}
+            <li>{{ form_widget(child) }} {{ form_label(child) }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
