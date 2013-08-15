@@ -181,6 +181,12 @@ class User extends BaseUser
 		$this->setUsername($this->getEmail());
     }
 
+    public function setEmail( $email ){
+    	parent::setEmail( $email );
+    	$this->setUsername( $email );
+    	return $this;    	
+    }
+    
     /**
      * Set stripeToken
      *

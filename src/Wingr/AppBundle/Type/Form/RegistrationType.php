@@ -54,7 +54,8 @@ class RegistrationType extends BaseType
                 				  "empty_value" => "Please select...", "label" => "Expiration Month", "required" => true))
 				->add('expYear', 'choice', array("mapped" => false, "choices" => $yearVals,
                 				  "empty_value" => "Please select...", "label" => "Expiration Year", "required" => true))
-				->add('stripeToken', 'hidden', array("required" => true))
+				->add('stripeToken', 'hidden', array("data" => "TEST", "required" => true))
+				->add('enabled', 'hidden', array("data" => "1", "required" => true))
         ;
 
         
@@ -63,7 +64,7 @@ class RegistrationType extends BaseType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('validation_groups' => array('Registration', 'Default')));
+        $resolver->setDefaults(array('validation_groups' => array('Default')));
     }
     
     public function getName()

@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use Wingr\AppBundle\Type\Form\RegistrationType;
+use Wingr\AppBundle\Type\Form\RequestType;
 use Wingr\AppBundle\Entity\User;
 
 class DefaultController extends Controller
@@ -19,7 +21,10 @@ class DefaultController extends Controller
 	 */
 	public function dashboardAction()
 	{
-		return new Response("OK");
+		
+		$form = $this->createForm(new RequestType());
+		
+		return array("user" => $this->getUser(), "form" => $form->createView());
 	}	
 	
     /**

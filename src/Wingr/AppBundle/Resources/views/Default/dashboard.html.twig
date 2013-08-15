@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="container dashboard-container">    
+    <div class="container-inner">
+        
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="page-header"><h2>{{ user.name }}'s dashboard</h2></div>
+            </div>
+        </div>
+        
+        <div class="row-fluid">
+            <div class="span9">
+                
+                <div class="alert alert-info">
+                    <strong>Welcome</strong> to your Wingr dashboard. This is where you can see your account status and create concierge requests.
+                </div>
+                
+                <h3>Create a request</h3>
+                
+                <div class="row-fluid">
+                    <div class="span5">
+                        <div class="centered email-us">
+                            <p>Email us at</p>
+                            <p><a href="mailto:support@wingr.zendesk.com">support@wingr.zendesk.com</a></p>
+                        </div>
+                    </div>
+                    <div class="span7">
+                        
+                        <form method="POST" action="{{ url("user_dashboard") }}" class="submit-request-form">
+                            <fieldset>
+                                <legend>Or fill out this form</legend>
+                                {{ form_widget(form) }}
+                                <div class="centered">
+                                    <input class="btn btn-large btn-primary" type="submit" value="Submit Request" />
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                                
+            </div>
+            <div class="span3">
+                <div class="account-status pull-right">
+                    <h3>Account status</h3>
+                    <ul class="listless">
+                        <li><a class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i></a> Payment processed</li>
+                        <li><a class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i></a> Email confirmed</li>
+                        <li><a class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i></a> 3 of 10 questions used</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
