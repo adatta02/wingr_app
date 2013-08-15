@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="wingr_user")
  * @ORM\Entity(repositoryClass="Wingr\AppBundle\Entity\UserRepository")
+ * @ORM\HasLifecycleCallbacks 
  * @UniqueEntity(fields={"email"}, groups={"Default", "Registration"}, message="Sorry! That email address is already registered.")
  */
 class User extends BaseUser
@@ -35,11 +36,21 @@ class User extends BaseUser
      *     pattern="/\d/",
      *     match=false,
      *     message="Your name cannot contain a number",
-     *     groups={"Registration", "Update", "ReferFriend"}
+     *     groups={"Registration", "Default"}
      * )
      */
     private $name;
-       
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="stripe_token", type="string", length=100, nullable=true)
+     * @Assert\NotBlank(
+     *     groups={"Registration", "Default"}
+     * )
+     */    
+    private $stripeToken;
+    
     /**
      * @var string
      *
@@ -160,5 +171,128 @@ class User extends BaseUser
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+		$this->setUsername($this->getEmail());
+    }
+
+    /**
+     * Set stripeToken
+     *
+     * @param string $stripeToken
+     * @return User
+     */
+    public function setStripeToken($stripeToken)
+    {
+        $this->stripeToken = $stripeToken;
+    
+        return $this;
+    }
+
+    /**
+     * Get stripeToken
+     *
+     * @return string 
+     */
+    public function getStripeToken()
+    {
+        return $this->stripeToken;
+    }
+
+    /**
+     * Set isPaid
+     *
+     * @param boolean $isPaid
+     * @return User
+     */
+    public function setIsPaid($isPaid)
+    {
+        $this->isPaid = $isPaid;
+    
+        return $this;
+    }
+
+    /**
+     * Get isPaid
+     *
+     * @return boolean 
+     */
+    public function getIsPaid()
+    {
+        return $this->isPaid;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param integer $gender
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return integer 
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set lookingFor
+     *
+     * @param integer $lookingFor
+     * @return User
+     */
+    public function setLookingFor($lookingFor)
+    {
+        $this->lookingFor = $lookingFor;
+    
+        return $this;
+    }
+
+    /**
+     * Get lookingFor
+     *
+     * @return integer 
+     */
+    public function getLookingFor()
+    {
+        return $this->lookingFor;
+    }
+
+    /**
+     * Set interestedIn
+     *
+     * @param array $interestedIn
+     * @return User
+     */
+    public function setInterestedIn($interestedIn)
+    {
+        $this->interestedIn = $interestedIn;
+    
+        return $this;
+    }
+
+    /**
+     * Get interestedIn
+     *
+     * @return array 
+     */
+    public function getInterestedIn()
+    {
+        return $this->interestedIn;
     }
 }

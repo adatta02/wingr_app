@@ -49,11 +49,12 @@ class RegistrationType extends BaseType
                	
                 ->add('nameOnCard', 'text', array("mapped" => false, "label" => "Name on card", "required" => true))
                 ->add('number', 'text', array("mapped" => false, "label" => "Card number", "required" => true))
-                ->add('cvc', 'text', array("mapped" => false, "label" => "CVC # <a data-toggle='modal' href='#cvv-modal'>(help)</a>", "required" => true))
+                ->add('cvc', 'text', array("mapped" => false, "label" => "CVC # <a href='#cvv-modal'>(help)</a>", "required" => true))
                 ->add('expMonth', 'choice', array("mapped" => false, "choices" => $monthVals, 
                 				  "empty_value" => "Please select...", "label" => "Expiration Month", "required" => true))
 				->add('expYear', 'choice', array("mapped" => false, "choices" => $yearVals,
-                				  "empty_value" => "Please select...", "label" => "Expiration Year", "required" => true))                				  
+                				  "empty_value" => "Please select...", "label" => "Expiration Year", "required" => true))
+				->add('stripeToken', 'hidden', array("required" => true))
         ;
 
         
@@ -62,7 +63,7 @@ class RegistrationType extends BaseType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('validation_groups' => array('Default')));
+        $resolver->setDefaults(array('validation_groups' => array('Registration', 'Default')));
     }
     
     public function getName()

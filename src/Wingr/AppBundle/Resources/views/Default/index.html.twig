@@ -7,7 +7,7 @@
     
         <div class="container-inner">
         
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="POST" action="{{ url("registration_index") }}">
             
              <div class="row-fluid">
                 <div class="span7">                    
@@ -87,6 +87,7 @@
                  </div>               
             </div>                           
             
+            {{ form_rest(form) }}
             </form>
        
          </div>       
@@ -106,7 +107,7 @@
 <div class="modal hide fade" id="cvvModal">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Where is my CVC?</h3>
+        <h3>Need a hand?</h3>
     </div>
     <div class="modal-body">
         <div class="centered">
