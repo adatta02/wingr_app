@@ -24,3 +24,4 @@ security:
 
     access_control:
         - { path: ^/admin/, role: ROLE_ADMIN }    
+        - { path: ^/dashboard, role: ROLE_USER }
