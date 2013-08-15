@@ -31,10 +31,15 @@
 		    			<div class="pull-left"><h3><a href="/">Wingr</a></h3></div>
 		    			<div class="pull-right">
 		    				<ul class="listless">
-		    					<li><a href="/">Home</a></li>
-		    					<li><a href="/sign-up">Sign Up</a></li>
-		    					<li><a href="/contact">Contact</a></li>
-		    					<li><a class="btn btn-primary" href="http://app.wingr.me">Login</a></li>
+		    					<li><a href="http://www.wingr.me">Home</a></li>
+		    					<li><a href="http://www.wingr.me/contact">Contact</a></li>
+		    					{% if app.user %}
+		    					     <li><a href="{{ url("user_dashboard") }}">Dashbard</a></li>
+		    					     <li><a href="{{ url("fos_user_security_login") }}">Logout</a></li>
+		    					{% else %}
+    		    					<li><a href="{{ url("registration_index") }}">Sign Up</a></li>    		    					
+    		    					<li><a class="btn btn-primary" href="{{ url("fos_user_security_login") }}">Login</a></li>
+    		    			   {% endif %}
 		    				</ul>
 		    			</div>
 		    			<div class="clearfix"></div>
