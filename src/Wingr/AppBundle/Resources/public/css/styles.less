@@ -1,3 +1,5 @@
+@import "./utils.less";
+
 body {
     height: 100%;
     width: 100%;
@@ -242,4 +244,47 @@ body {
     width: auto;
     font-size: 32px;
     line-height: 44px;
+}
+
+.registration-container {
+	div.container-inner {
+	   background-color: #fafafa;
+	   padding: 20px;
+    }
+    
+    .submit-btn {
+        padding-right: 40px;
+    }
+    
+    .info-container {
+        margin-top: 90px;
+        color: #3A87AD;
+        .more-padding {
+            margin-top: 30px;
+        }
+        li {
+            line-height: 40px;
+        }        
+    }
+    
+    div.tight-container {
+        margin-top: 50px;
+    }
+    
+    #wingr_register_interestedIn ul {
+        .listless;
+        li {
+            input, label {
+                display: inline-block;
+                margin: 0px;
+            }
+            label {
+                padding-left: 3px;
+            }
+        }
+    }
+    
+    .alert strong {
+        text-transform: uppercase;
+    }
 }

@@ -39,41 +39,7 @@ class User extends BaseUser
      * )
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name_on_card", type="string", length=100, nullable=true)
-     * @Assert\Regex(
-     *     pattern="/\d/",
-     *     match=false,
-     *     message="Your name cannot contain a number",
-     *     groups={"Registration", "Update", "ReferFriend"}
-     * )
-     */
-    private $nameOnCard;    
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="billing_address", type="string", length=255, nullable=true)
-     */
-    private $billingAddress;    
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="billing_city", type="string", length=255, nullable=true)
-     */
-    private $billingCity;    
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="billing_zipcode", type="string", length=10, nullable=true)
-     */
-    private $billingZipcode;    
-    
+       
     /**
      * @var string
      *
