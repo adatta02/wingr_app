@@ -1,0 +1,64 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+
+<div class="row-fluid">
+    <div class="span4 offset4">
+        
+        <div class="container-inner">    
+            <h3>Login:</h3>
+            <div class="inner">
+            
+                <p class="centered padded-bottom">Not a member yet? <a href="{{ path('registration_index') }}">Sign Up</a> to get started!</p>
+        
+                {% if error %}
+                    <div class="alert alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                {% endif %}            
+            
+                <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+                                        
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    
+                    <div class="control-group">
+                        <label class="control-label required" for="username">Email Address</label>
+                        <div class="controls">
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label required" for="password">Password</label>
+                        <div class="controls">
+                            <input type="password" id="password" name="_password" required="required" />
+                        </div>
+                    </div>                    
+                    
+                       
+                    <div class="control-group remmember-me-controls">
+                        <div class="pull-left">
+                            <label for="remember_me" class='checkbox'>
+                                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                                Remember Me
+                            </label>
+                        </div>
+                        <div class="pull-right">
+                            <a href="{{ url("fos_user_resetting_request") }}">Forgot Password?</a>
+                        </div>
+                    </div>                    
+                                          
+                
+                    <div class="control-group button-bar">
+                        <div class="pull-right">
+                            <input class="btn btn-large btn-primary" type="submit" id="_submit" name="_submit" value="Login" />
+                        </div>
+                    </div>
+                                       
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock fos_user_content %}
+
+{% block wrapper_classes %}{% spaceless %}homepage-container{% endspaceless %}{% endblock wrapper_classes %}

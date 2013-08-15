@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Wingr Login
+{% endblock %}
+
+{% block body %}
+
+        <div class="fosuser-container {% block wrapper_classes %}{% endblock wrapper_classes %} container-fluid">
+            <div class="body-container">                    
+                {% block fos_user_content %}{% endblock %}
+            </div>
+        </div>
+        
+{% endblock %}
