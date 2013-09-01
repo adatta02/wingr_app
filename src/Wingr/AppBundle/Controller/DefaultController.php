@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use Wingr\AppBundle\Type\Form\RegistrationType;
@@ -26,6 +27,24 @@ class DefaultController extends Controller
 		
 		return array("user" => $this->getUser(), "form" => $form->createView());
 	}	
+	
+	/**
+	 * @Route("/ajax/validate-form", name="registration_ajax_validate")
+	 * @Template()
+	 */
+	public function ajaxValidateAction(){
+		
+		$res = array("isValid" => false, "html" => "");
+		
+		$user = new User();
+		$form = $this->createForm(new RegistrationType("Wingr\\AppBundle\\Entity\\User"), $user);
+		$form->bind( $this->getRequest() );
+		
+		$res["isValid"] = $form->isValid();
+		$res["html"] = $this->renderView('WingrAppBundle:Default:renderSignupForm.html.twig', array('form' => $form->createView()));
+		
+		return new JsonResponse( $res );
+	}
 	
     /**
      * @Route("/", name="registration_index")

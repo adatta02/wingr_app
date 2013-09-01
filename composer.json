@@ -26,7 +26,8 @@
         "knplabs/knp-menu-bundle": "1.1.*",
         "sonata-project/admin-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle": "dev-master"
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "stripe/php-binding": "master"
     },
     "scripts": {
         "post-install-cmd": [

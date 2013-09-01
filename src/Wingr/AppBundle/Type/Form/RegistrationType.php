@@ -47,14 +47,17 @@ class RegistrationType extends BaseType
                	->add("interestedIn", "choice", array("required" => false, "expanded" => true, "multiple" => true, 
                					      "label" => "And I'm interested in", "choices" => $lookingForChoices))
                	
-                ->add('nameOnCard', 'text', array("mapped" => false, "label" => "Name on card", "required" => true))
-                ->add('number', 'text', array("mapped" => false, "label" => "Card number", "required" => true))
-                ->add('cvc', 'text', array("mapped" => false, "label" => "CVC # <a href='#cvv-modal'>(help)</a>", "required" => true))
-                ->add('expMonth', 'choice', array("mapped" => false, "choices" => $monthVals, 
+                ->add('nameOnCard', 'text', array("mapped" => false, "attr" => array("data-stripe" => "name"), 
+                								  "label" => "Name on card", "required" => true))
+                ->add('number', 'text', array("mapped" => false, "label" => "Card number", 
+                							  "required" => true, "attr" => array("data-stripe" => "number")))
+                ->add('cvc', 'text', array("mapped" => false, "attr" => array("data-stripe" => "cvc"), 
+                						   "label" => "CVC # <a href='#cvv-modal'>(help)</a>", "required" => true))
+                ->add('expMonth', 'choice', array("mapped" => false, "choices" => $monthVals, "attr" => array("data-stripe" => "exp-month"), 
                 				  "empty_value" => "Please select...", "label" => "Expiration Month", "required" => true))
-				->add('expYear', 'choice', array("mapped" => false, "choices" => $yearVals,
+				->add('expYear', 'choice', array("mapped" => false, "choices" => $yearVals, "attr" => array("data-stripe" => "exp-year"),
                 				  "empty_value" => "Please select...", "label" => "Expiration Year", "required" => true))
-				->add('stripeToken', 'hidden', array("data" => "TEST", "required" => true))
+				->add('stripeToken', 'hidden', array("required" => true))
 				->add('enabled', 'hidden', array("data" => "1", "required" => true))
         ;
 

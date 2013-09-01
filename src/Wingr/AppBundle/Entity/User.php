@@ -45,9 +45,6 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="stripe_token", type="string", length=100, nullable=true)
-     * @Assert\NotBlank(
-     *     groups={"Registration", "Default"}
-     * )
      */    
     private $stripeToken;
     

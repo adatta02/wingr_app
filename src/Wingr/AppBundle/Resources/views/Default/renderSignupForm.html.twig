@@ -1,0 +1,86 @@
+ <div class="row-fluid">
+    <div class="span7">                 
+    
+        <fieldset>
+            <legend>Your Account</legend>
+            
+            {{ form_row(form.name) }}
+            
+            {{ form_row(form.email) }}
+            
+            {{ form_row(form.plainPassword) }}                     
+        </fieldset>                    
+    </div>
+    
+    <div class="span5">
+        <div class="centered info-container">
+             <ul class="">
+                <li>You'll use your email address to login.</li>
+                <li>Be careful typing your password.</li>
+             </ul>
+        </div>
+    </div>
+</div>
+
+ <div class="row-fluid">
+    <div class="span7">
+        <fieldset>
+            <legend>Your Profile</legend>
+            <div class="alert alert-info centered">These fields are <strong>optional</strong>.</div>
+            
+            {{ form_row(form.gender) }}
+            
+            {{ form_row(form.lookingFor) }}
+            
+            {{ form_row(form.interestedIn) }}                            
+                                  
+        </fieldset>
+    </div>
+    <div class="span5">
+        <div class="centered info-container">
+             <ul class="more-padding">
+                <li>We use this information to help personalize your experience.</li>
+                <li>Want to leave it blank? It's ok you can fill it out later.</li>                            
+             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span7">
+        <fieldset>
+            <legend>Your Billing Information</legend>
+            
+            {{ form_row(form.nameOnCard) }}
+            
+            {{ form_row(form.number) }}
+            
+            {{ form_row(form.cvc) }}
+                                       
+            {{ form_row(form.expMonth) }}                                                        
+            
+            {{ form_row(form.expYear) }}
+            
+            {{ form_errors(form) }}
+            
+            <div class="alert alert-info hide centered loading-alert"></div>
+            
+            <div class="alert alert-error hide centered payment-alert"></div>
+            
+            <div class="pull-right submit-btn">
+                <input type="submit" class="btn btn-large btn-success" value="Sign Up" />
+            </div>
+        </fieldset>                                           
+     </div>
+     <div class="span5">
+        <div class="centered info-container tight-container">
+             <ul class="listless">
+                <li>Your transaction is 100% encrypted and secure.</li>
+                <li><img src="{{ asset("/bundles/wingrapp/img/norton-seal.jpg") }} " /></li>
+                <li><img src="{{ asset("/bundles/wingrapp/img/card_logos.gif") }} " /></li>                            
+             </ul>
+        </div>                 
+     </div>               
+</div>                           
+
+{{ form_rest(form) }}
