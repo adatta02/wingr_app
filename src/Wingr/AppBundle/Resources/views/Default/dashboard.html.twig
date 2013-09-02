@@ -15,7 +15,14 @@
             <div class="span9">
                 
                 <div class="alert alert-info">
-                    <strong>Welcome</strong> to your Wingr dashboard. This is where you can see your account status and create concierge requests.
+                    {% set notices = app.session.flashbag.get('notice') %} 
+                    {% if notices|length > 0 %}
+                        {% for msg in notices %}
+                            {{ msg }}
+                        {% endfor %}
+                    {% else %}
+                        <strong>Welcome</strong> to your Wingr dashboard. This is where you can see your account status and create concierge requests.
+                    {% endif %}                                    
                 </div>
                 
                 <h3>Create a request</h3>
@@ -47,8 +54,7 @@
                     <h3>Account status</h3>
                     <ul class="listless">
                         <li><a class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i></a> Payment processed</li>
-                        <li><a class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i></a> Email confirmed</li>
-                        <li><a class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i></a> 3 of 10 questions used</li>
+                        <li><a class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i></a> Email confirmed</li>                       
                     </ul>
                 </div>
             </div>
