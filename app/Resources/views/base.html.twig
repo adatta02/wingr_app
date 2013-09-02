@@ -9,6 +9,11 @@
         <link rel="stylesheet" href="{{ asset('bundles/wingrapp/css/bootstrap-responsive.css') }}" type="text/css" media="all" />        
         <link href="{{ asset('bundles/wingrapp/css/utils.less') }}" rel="stylesheet/less" type="text/css">
         <link href="{{ asset('bundles/wingrapp/css/styles.less') }}" rel="stylesheet/less" type="text/css">
+        
+        {% if theme is defined and theme == "pof" %}
+            <link href="{{ asset('bundles/wingrapp/css/pof.less') }}" rel="stylesheet/less" type="text/css">
+        {% endif %}
+        
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>		
         
         <script type="text/javascript" src="{{ asset('bundles/wingrapp/js/jquery-1.10.2.min.js') }}"></script>
@@ -35,10 +40,10 @@
 		    					<li><a href="http://www.wingr.me/contact">Contact</a></li>
 		    					{% if app.user %}
 		    					     <li><a href="{{ url("user_dashboard") }}">Dashbard</a></li>
-		    					     <li><a href="{{ url("fos_user_security_login") }}">Logout</a></li>
+		    					     <li><a href="{{ url("fos_user_security_logout") }}">Logout</a></li>
 		    					{% else %}
     		    					<li><a href="{{ url("registration_index") }}">Sign Up</a></li>    		    					
-    		    					<li><a class="btn btn-primary" href="{{ url("fos_user_security_login") }}">Login</a></li>
+    		    					<li class="login-btn-container"><a class="btn btn-primary" href="{{ url("fos_user_security_login") }}">Login</a></li>
     		    			   {% endif %}
 		    				</ul>
 		    			</div>
@@ -46,7 +51,8 @@
 		    		</div>
 	    		</div>
 	  		</div>
-	  	</div>        
+	  	</div>
+	  	<div class="pof-header">&nbsp;</div>    
         {% endblock %}
     
         {% block body %}{% endblock %}

@@ -71,6 +71,11 @@ class DefaultController extends Controller
     public function indexAction()
     {    
     	
+    	if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
+    		return $this->redirect( $this->generateUrl("user_dashboard") );
+    	}
+    	
+    	$theme = $this->getRequest()->get("theme");
     	$user = new User();
     	$form = $this->createForm(new RegistrationType("Wingr\\AppBundle\\Entity\\User"), $user);
     	
@@ -95,6 +100,6 @@ class DefaultController extends Controller
     		}
     	}
     	
-        return array("form" => $form->createView());
+        return array("form" => $form->createView(), "theme" => $theme);
     }
 }
