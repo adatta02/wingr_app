@@ -30,14 +30,8 @@ class RegistrationType extends BaseType
         $builder->remove("plainPassword")
                 ->remove("username")
                 ->remove("email")
-                
-                ->add('name', 'text', array('label' => 'Name', "constraints" => array( new NotBlank() )))
-                
-                ->add('plainPassword', 'password', array('label' => 'Password', "constraints" => array( new NotBlank() )))
-                
-                ->add('email', 'email', array("required" => true, 'label' => 'Email Address', 
-                	  "constraints" => array( new NotBlank(), new Email() ), 'translation_domain' => 'FOSUserBundle'))
 
+                ->add('plainPassword', 'password', array('label' => 'Password', "constraints" => array( new NotBlank() )))
                	->add("gender", "choice", array("required" => false, "empty_value" => "Please select...", 
                				    "label" => "I am a", "choices" => array("1" => "Guy", "2" => "Girl")))
                	

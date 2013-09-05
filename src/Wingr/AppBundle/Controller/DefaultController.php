@@ -63,20 +63,50 @@ class DefaultController extends Controller
 		
 		return new JsonResponse( $res );
 	}
+		
+	/**
+	 * @Route("/registration-start", name="registration_start")
+	 * @Template()
+	 */
+	public function registrationStartAction()
+	{
+		
+		$form = $this->getRequest()->get("form", array());
+		
+		if( !array_key_exists("email", $form) || !array_key_exists("name", $form) ){
+			return $this->redirect( "http://www.wingr.me" );
+		}
+		
+		$user = new User();
+		$user->setEmail( $form["email"] );
+		$user->setName( $form["name"] );
+		$user->setPassword("hello!");
+		
+		$this->getDoctrine()->getManager()->persist( $user );
+		$this->getDoctrine()->getManager()->flush();
+				
+		$providerKey = $this->container->getParameter('fos_user.firewall_name');
+		$token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+		$this->container->get('security.context')->setToken($token);
+
+		return $this->redirect( $this->generateUrl("registration_index") );
+	}	
 	
     /**
      * @Route("/", name="registration_index")
      * @Template()
      */
     public function indexAction()
-    {    
+    {
     	
+    	/*
     	if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
     		return $this->redirect( $this->generateUrl("user_dashboard") );
     	}
+    	*/
     	
-    	$theme = $this->getRequest()->get("theme");
-    	$user = new User();
+    	$user = $this->getUser();
+    	$theme = $this->getRequest()->get("theme");    	
     	$form = $this->createForm(new RegistrationType("Wingr\\AppBundle\\Entity\\User"), $user);
     	
     	if( $this->getRequest()->isMethod("POST") ){
@@ -85,17 +115,25 @@ class DefaultController extends Controller
     		
     		if( $form->isValid() ){
     			
-    			$res = \Stripe_Customer::create( array("card" => $user->getStripeToken(), 
-    										   		   "plan" => "regular", "email" => $user->getEmail()), "sk_test_tIVB0G66iuZu2kt4pZt4IHTc");    			
-    			
-    			$user->setStripeToken( $res["id"] );    			
-    			$this->getDoctrine()->getManager()->persist( $user );
     			$this->getDoctrine()->getManager()->flush();
-    			
+
     			$providerKey = $this->container->getParameter('fos_user.firewall_name');
     			$token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-    			$this->container->get('security.context')->setToken($token);
-
+    			$this->container->get('security.context')->setToken($token);    			 
+    			
+    			$user = $this->getUser();
+    			
+    			try { 
+    				$res = \Stripe_Customer::create( array("card" => $user->getStripeToken(), 
+    										   		   	   "plan" => "regular", "email" => $user->getEmail()), "sk_test_tIVB0G66iuZu2kt4pZt4IHTc");    			
+    			}catch(\Exception $ex){
+    				$this->get('session')->getFlashBag()->add('error', $ex->getMessage());
+    				return $this->redirect( $this->generateUrl("registration_index") );
+    			}
+    			$user->setIsPaid( true );
+    			$user->setStripeToken( $res["id"] );    			 			    		
+    			$this->getDoctrine()->getManager()->flush();
+    			
     			return $this->redirect( $this->generateUrl("user_dashboard") );
     		}
     	}

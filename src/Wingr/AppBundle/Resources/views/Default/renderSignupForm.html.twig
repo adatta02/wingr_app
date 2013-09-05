@@ -1,28 +1,4 @@
  <div class="row-fluid">
-    <div class="span7">                 
-    
-        <fieldset>
-            <legend>Your Account</legend>
-            
-            {{ form_row(form.name) }}
-            
-            {{ form_row(form.email) }}
-            
-            {{ form_row(form.plainPassword) }}                     
-        </fieldset>                    
-    </div>
-    
-    <div class="span5">
-        <div class="centered info-container">
-             <ul class="">
-                <li>You'll use your email address to login.</li>
-                <li>Be careful typing your password.</li>
-             </ul>
-        </div>
-    </div>
-</div>
-
- <div class="row-fluid">
     <div class="span7">
         <fieldset>
             <legend>Your Profile</legend>
@@ -50,6 +26,8 @@
     <div class="span7">
         <fieldset>
             <legend>Your Billing Information</legend>
+            
+            {{ form_row(form.plainPassword) }}
             
             {{ form_row(form.nameOnCard) }}
             

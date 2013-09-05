@@ -7,8 +7,20 @@
     
         <div class="container-inner">
         
-            <form id="signUpForm" class="form-horizontal" method="POST" action="{{ url("registration_index") }}">            
-                {% include 'WingrAppBundle:Default:renderSignupForm.html.twig' %}             
+            <form id="signUpForm" class="form-horizontal" method="POST" action="{{ url("registration_index") }}">
+            
+                {% set errors = app.session.flashbag.get('error') %}
+                
+                {% if errors|length > 0 %}
+                    <div class="span7">
+                        <div class="alert alert-error">
+                            {% for msg in errors %}{{ msg }}{% endfor %}<br>
+                            Please contact <a href="mailto:support@wingr.zendesk.com">support@wingr.zendesk.com</a>
+                        </div>
+                    </div>
+                {% endif %}             
+                        
+                {% include 'WingrAppBundle:Default:renderSignupForm.html.twig' %}                                          
             </form>
        
          </div>       
@@ -38,37 +50,22 @@
         $(this).data("isSubmitting", true);
     
         $(".payment-alert").hide();
-        $(".loading-alert").html("Sit tight, checking your information...").show();
+        $(".loading-alert").html("Almost there, checking your credit card info!").show();
         
-        $.post("{{ url("registration_ajax_validate") }}", $(this).serialize(), function(data){
+        Stripe.createToken($("#signUpForm"), function(status, response){
+        
+            $(".loading-alert").hide();                
+            $("#signUpForm").data("isSubmitting", false);
             
-            $(".loading-alert").hide();
-            
-            if( data.isValid ){
-            
-                $(".loading-alert").html("Almost there, checking your credit card info!").show();
-            
-                Stripe.createToken($("#signUpForm"), function(status, response){
-                
-                    $(".loading-alert").hide();                
-                    $("#signUpForm").data("isSubmitting", false);
-                    
-                    if(response.error){
-                        $(".payment-alert").html(response.error.message).show();
-                    }else{
-                        $("#wingr_register_stripeToken").val( response.id );
-                        $("#signUpForm").submit();
-                    }
-                    
-                });
+            if(response.error){
+                $(".payment-alert").html(response.error.message).show();
             }else{
-                $("#signUpForm").data("isSubmitting", false);
-                $("#signUpForm").html( data.html );
-                $(".error input:first, .error select:first").focus();
+                $("#wingr_register_stripeToken").val( response.id );
+                $("#signUpForm").submit();
             }
             
-        }); 
-        
+        });        
+                 
         return false;
     });
     
