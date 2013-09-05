@@ -36,9 +36,9 @@
 		    			<div class="pull-left"><h3><a href="/">Wingr</a></h3></div>
 		    			<div class="pull-right">
 		    				<ul class="listless">
-		    					<li><a href="http://www.wingr.me">Home</a></li>
-		    					<li><a href="http://www.wingr.me/contact">Contact</a></li>
-		    					{% if app.user %}
+		    					<li><a href="{{ url("homepage") }}">Home</a></li>
+		    					<li><a href="{{ url("contact_us") }}">Contact</a></li>
+		    					{% if is_granted('ROLE_USER') %}
 		    					     <li><a href="{{ url("user_dashboard") }}">Dashbard</a></li>
 		    					     <li><a href="{{ url("fos_user_security_logout") }}">Logout</a></li>
 		    					{% else %}

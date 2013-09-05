@@ -92,18 +92,40 @@ class DefaultController extends Controller
 		return $this->redirect( $this->generateUrl("registration_index") );
 	}	
 	
+	/**
+	 * @Route("/", name="homepage")
+	 * @Template()
+	 */
+	public function indexAction()
+	{
+		
+		if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && $this->getUser()->getIsPaid() ){
+			return $this->redirect( $this->generateUrl("user_dashboard") );
+		}
+		
+		return array();
+	}	
+	
+	/**
+	 * @Route("/contact-us", name="contact_us")
+	 * @Template()
+	 */
+	public function contactUsAction()
+	{
+		
+		return array();
+	}		
+	
     /**
-     * @Route("/", name="registration_index")
+     * @Route("/register", name="registration_index")
      * @Template()
      */
-    public function indexAction()
+    public function registerAction()
     {
-    	
-    	/*
-    	if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
+    	    	
+    	if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') && $this->getUser()->getIsPaid() ){
     		return $this->redirect( $this->generateUrl("user_dashboard") );
-    	}
-    	*/
+    	}    	
     	
     	$user = $this->getUser();
     	$theme = $this->getRequest()->get("theme");    	
@@ -127,6 +149,9 @@ class DefaultController extends Controller
     				$res = \Stripe_Customer::create( array("card" => $user->getStripeToken(), 
     										   		   	   "plan" => "regular", "email" => $user->getEmail()), "sk_test_tIVB0G66iuZu2kt4pZt4IHTc");    			
     			}catch(\Exception $ex){
+    				$user->setStripeToken( null );
+    				$this->getDoctrine()->getManager()->flush();
+    				
     				$this->get('session')->getFlashBag()->add('error', $ex->getMessage());
     				return $this->redirect( $this->generateUrl("registration_index") );
     			}

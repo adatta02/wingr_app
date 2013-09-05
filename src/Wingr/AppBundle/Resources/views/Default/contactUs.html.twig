@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="container contact-us">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="container-inner min-body-height">
+                <h1>Contact Us</h1>
+                <div class="row-fluid">
+                    <div class="span7">
+                        Questions, comments or concerns? Drop us a line <a href="mailto:contact@wingr.me">macontact@wingr.me</a>
+                    </div>
+                    <div class="span5">
+                        <ul class="listless">
+                            <li><img src="{{ asset("/bundles/wingrapp/img/outoffice.jpg") }}" /></li>
+                            <li>Wingr</li>
+                            <li>Cambridge Innovation Center</li>
+                            <li>1 Broadway, Cambridge, MA 02142</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
