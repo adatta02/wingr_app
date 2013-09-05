@@ -7,12 +7,24 @@ body {
     background: url("../img/pof-web-header-top-bg.png") repeat scroll 0 0 #fff;
     margin-bottom: 0px !important;
     
-    h3 a, .listless li a, li {
+    h3 a {
         color: #6DC5DF;
     }
-    .login-btn-container {
-        display: none !important;
-    }
+}
+
+.header {
+	font-family: Open Sans, Sans-Serif !important;
+	.listless li a, li {
+	   text-transform: capitalize;
+	   text-shadow: 0 1px 0 #1E496B;
+	}
+	.listless li {
+	   border-right: 2px solid #121212;
+	   margin-right: 5px;
+	   &:last-child {
+	       border-right: 0px;	       
+	   }
+	}
 }
 
 fieldset legend {
@@ -28,6 +40,8 @@ fieldset legend {
 	-moz-box-shadow: 0 8px 10px #DEDEDE;
 	-webkit-box-shadow: 0 8px 10px #DEDEDE;
 	-o-box-shadow: 0 8px 10px #DEDEDE;
+	background-color: #FAFAFA;
+	padding: 20px;	
 }
 
 .btn-success {
@@ -43,4 +57,27 @@ fieldset legend {
 	-o-box-shadow: 0 2px 2px #999999;
 	height: 42px;
 	margin-bottom: 5px;
+	color: #fff;
+	text-shadow: 0 1px 0 #1E496B;
+	font-family: Open Sans,Sans-Serif;
+	
+	.pof-header-inner {
+	   text-align: center;
+	   font-size: 22px;
+	   padding: 8px;
+	   em {
+	       font-style: normal !important;
+	       font-weight: bold;
+	   }	   
+	}
+}
+
+.home {		
+	.splash-banner {	   
+	   display: none;
+	}
+}
+
+.blue {
+	color: #B61848;
 }
