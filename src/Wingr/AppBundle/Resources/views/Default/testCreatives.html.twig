@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="container contact-us">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="container-inner min-body-height">
+                <h1>Available Creatives</h1>
+                {% for file in files %}
+                
+                    <h3>{{ file }}</h3>
+                    <script type="text/javascript" src="https://www.wingr.me/serve.php?path={{ file }}"></script>
+<pre style="margin-top: 20px;">
+{% set varSrc = '<script type="text/javascript" src="https://www.wingr.me/serve.php?path=' ~ file ~ '"></script>' %}
+{{ varSrc|escape }}
+</pre>                
+                
+                    <hr />
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

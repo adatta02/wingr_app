@@ -19,6 +19,23 @@ class DefaultController extends Controller
 {
 	
 	/**
+	 * @Route("/test-creatives", name="test_creatives")
+	 * @Template()
+	 */
+	public function testCreativesAction()
+	{
+		
+		$allFiles = glob( $this->get('kernel')->getRootDir() . '/../web/creatives/*.png' );		
+		
+		$files = array();
+		foreach( $allFiles as $fn ){
+			$files[] = basename($fn);
+		}
+		
+		return array("files" => $files);
+	}	
+	
+	/**
 	 * @Route("/dashboard", name="user_dashboard")
 	 * @Template()
 	 */
