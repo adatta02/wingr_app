@@ -34,7 +34,7 @@ class RegistrationType extends BaseType
                 ->add('plainPassword', 'password', array('label' => 'Password', "constraints" => array( new NotBlank() )))
                	->add("gender", "choice", array("required" => false, "empty_value" => "Please select...", 
                				    "label" => "I am a", "choices" => array("1" => "Guy", "2" => "Girl")))
-               	
+				->add('age', 'text', array("required" => false))
 				->add("lookingFor", "choice", array("required" => false, "empty_value" => "Please select...",
                				 	    "label" => "I am looking for", "choices" => array("1" => "Guys", "2" => "Girls", "3" => "Both")))               						
                						

@@ -120,6 +120,10 @@ class DefaultController extends Controller
 			return $this->redirect( $this->generateUrl("user_dashboard") );
 		}
 		
+		if( $this->getRequest()->get("theme", null) ){
+			return $this->render('WingrAppBundle:Default:indexTwo.html.twig', array());
+		}
+		
 		return array();
 	}	
 	

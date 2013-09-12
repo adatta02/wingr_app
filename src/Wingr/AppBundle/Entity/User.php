@@ -65,6 +65,13 @@ class User extends BaseUser
     /**
      * @var integer
      *
+     * @ORM\Column(name="age", type="integer", length=4, nullable=true)
+     */
+    private $age;    
+    
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="looking_for", type="integer", length=1, nullable=true)
      */
     private $lookingFor;
@@ -297,5 +304,14 @@ class User extends BaseUser
     public function getInterestedIn()
     {
         return $this->interestedIn;
+    }
+    
+    public function getAge(){
+    	return $this->age;
+    }
+    
+    public function setAge($v){
+    	$this->age = $v;
+    	return $this;
     }
 }
