@@ -99,9 +99,14 @@ class DefaultController extends Controller
 		$user->setName( $form["name"] );
 		$user->setPassword("hello!");
 		
-		$this->getDoctrine()->getManager()->persist( $user );
-		$this->getDoctrine()->getManager()->flush();
-				
+		try{
+			$this->getDoctrine()->getManager()->persist( $user );
+			$this->getDoctrine()->getManager()->flush();
+		}catch(\Exception $ex){
+			$this->get('session')->getFlashBag()->add('notice', "Sorry! That email address is already registered.");
+			return $this->redirect( $this->generateUrl("homepage") );
+		}	
+		
 		$providerKey = $this->container->getParameter('fos_user.firewall_name');
 		$token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
 		$this->container->get('security.context')->setToken($token);
@@ -176,9 +181,13 @@ class DefaultController extends Controller
     				$this->get('session')->getFlashBag()->add('error', $ex->getMessage());
     				return $this->redirect( $this->generateUrl("registration_index") );
     			}
+    			
     			$user->setIsPaid( true );
     			$user->setStripeToken( $res["id"] );    			 			    		
     			$this->getDoctrine()->getManager()->flush();
+    			
+    			$msg = "Email: " . $user->getEmail() . "\nName: " . $user->getName();
+    			mail("adatta02@gmail.com, ackley.matthew@gmail.com", "New wingr.me user - " . date("r"), $msg);
     			
     			return $this->redirect( $this->generateUrl("user_dashboard") );
     		}
