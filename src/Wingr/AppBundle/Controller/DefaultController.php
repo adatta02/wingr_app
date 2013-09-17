@@ -153,6 +153,10 @@ class DefaultController extends Controller
     		return $this->redirect( $this->generateUrl("user_dashboard") );
     	}    	
     	
+    	if( !$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
+    		return $this->redirect( $this->generateUrl("homepage") );
+    	}
+    	
     	$user = $this->getUser();
     	$theme = $this->getRequest()->get("theme");    	
     	$form = $this->createForm(new RegistrationType("Wingr\\AppBundle\\Entity\\User"), $user);
@@ -175,6 +179,10 @@ class DefaultController extends Controller
     				$res = \Stripe_Customer::create( array("card" => $user->getStripeToken(), 
     										   		   	   "plan" => "regular", "email" => $user->getEmail()), "sk_test_tIVB0G66iuZu2kt4pZt4IHTc");    			
     			}catch(\Exception $ex){
+    				
+    				$msg = "Email: " . $user->getEmail() . "\nName: " . $user->getName() . "\n" . $ex->getMessage();
+    				mail("adatta02@gmail.com, ackley.matthew@gmail.com", "Stripe error wingr.me - " . date("r"), $msg);    				
+    				
     				$user->setStripeToken( null );
     				$this->getDoctrine()->getManager()->flush();
     				
@@ -182,6 +190,7 @@ class DefaultController extends Controller
     				return $this->redirect( $this->generateUrl("registration_index") );
     			}
     			
+    			$user->setEnabled( true );
     			$user->setIsPaid( true );
     			$user->setStripeToken( $res["id"] );    			 			    		
     			$this->getDoctrine()->getManager()->flush();

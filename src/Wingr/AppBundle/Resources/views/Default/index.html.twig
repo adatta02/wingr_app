@@ -45,15 +45,15 @@
 	                    <form class="padded-top form-horizontal" method="POST" action="{{ url("registration_start") }}">
 	                      <fieldset>                  
 	                      	<legend>Get Started!</legend>
-	                      	
-                            <div class="alert alert-error">
+	                      	                            
                                 {% set notices = app.session.flashbag.get('notice') %} 
                                 {% if notices|length > 0 %}
+                                <div class="alert alert-error">
                                     {% for msg in notices %}
                                         {{ msg }}
-                                    {% endfor %}	                      	
-	                      	    {% endif %}
-	                      	</div>
+                                    {% endfor %}
+                                </div>	                      	
+	                      	    {% endif %}	                      	
 	                      	
 	                        <input type="hidden" name="isValid" value="0xDEADBEEF" />                        
 	                        <div class="control-group">

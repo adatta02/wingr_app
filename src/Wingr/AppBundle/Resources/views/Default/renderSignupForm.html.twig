@@ -11,7 +11,8 @@
             {{ form_row(form.lookingFor) }}
             
             {{ form_row(form.interestedIn) }}                            
-                                  
+                             
+            {{ form_row(form.plainPassword) }}                             
         </fieldset>
     </div>
     <div class="span5">
@@ -27,9 +28,7 @@
 <div class="row-fluid">
     <div class="span7">
         <fieldset>
-            <legend>Your Billing Information</legend>
-            
-            {{ form_row(form.plainPassword) }}
+            <legend>Your Billing Information</legend>            
             
             {{ form_row(form.nameOnCard) }}
             
