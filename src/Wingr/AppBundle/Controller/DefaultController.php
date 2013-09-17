@@ -177,7 +177,7 @@ class DefaultController extends Controller
     			
     			try { 
     				$res = \Stripe_Customer::create( array("card" => $user->getStripeToken(), 
-    										   		   	   "plan" => "regular", "email" => $user->getEmail()), "sk_test_tIVB0G66iuZu2kt4pZt4IHTc");    			
+    										   		   	   "plan" => "regular", "email" => $user->getEmail()), " sk_live_Ltqiexo4Mn6G3fKRg29PqSaP");    			
     			}catch(\Exception $ex){
     				
     				$msg = "Email: " . $user->getEmail() . "\nName: " . $user->getName() . "\n" . $ex->getMessage();

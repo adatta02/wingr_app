@@ -24,7 +24,7 @@ document.write("<a target='_blank' href='https://wingr.me/?utm_source=fifty&utm_
 
 	$pdo = new PDO("mysql:dbname=wingr;host=localhost", "wingr", "wingr");
 	$sth = $pdo->prepare("INSERT INTO impression (ip, appnexus, user_agent, url, tag) VALUES (:ip, :appnexus, :user_agent, :url, :tag)");
-	$sth->execute( array("ip" => $_SERVER["REMOTE_ADDR"], "appnexus" => $_REQUEST["id"], "served" => $_REQUEST["tag"],
+	$sth->execute( array("ip" => $_SERVER["REMOTE_ADDR"], "appnexus" => $_REQUEST["id"], "tag" => $_REQUEST["served"],
 						 "user_agent" => $_SERVER["HTTP_USER_AGENT"], "url" => $_REQUEST["url"]) );
 	
 	echo "true;";

@@ -7,14 +7,15 @@
         
         <link rel="stylesheet" href="{{ asset('bundles/wingrapp/css/bootstrap.css') }}" type="text/css" media="all" />
         <link rel="stylesheet" href="{{ asset('bundles/wingrapp/css/bootstrap-responsive.css') }}" type="text/css" media="all" />        
-        <link href="{{ asset('bundles/wingrapp/css/utils.less') }}" rel="stylesheet/less" type="text/css">
-        <link href="{{ asset('bundles/wingrapp/css/styles.less') }}" rel="stylesheet/less" type="text/css">        
-        <link href="{{ asset('bundles/wingrapp/css/pof.less') }}" rel="stylesheet/less" type="text/css">
-        {% if theme is defined and theme == "pof" %}
-            
-        {% endif %}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>		
+        {% if app.debug %}
+            <link href="{{ asset('bundles/wingrapp/css/utils.less') }}" rel="stylesheet/less" type="text/css">
+            <link href="{{ asset('bundles/wingrapp/css/styles.less') }}" rel="stylesheet/less" type="text/css">        
+            <link href="{{ asset('bundles/wingrapp/css/pof.less') }}" rel="stylesheet/less" type="text/css">
+        {% else %}
+            <link rel="stylesheet" href="{{ asset('bundles/wingrapp/css/style.css') }}" type="text/css" media="all" />
+        {% endif %}                        	
         
         <script type="text/javascript" src="{{ asset('bundles/wingrapp/js/jquery-1.10.2.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/wingrapp/js/bootstrap.min.js') }}"></script>
