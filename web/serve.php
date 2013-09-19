@@ -2,7 +2,9 @@
 
 if( array_key_exists("tag", $_REQUEST) || array_key_exists("path", $_REQUEST) ){
 		
-	$validFiles = glob( dirname(__FILE__) . "/creatives/*.png" );		
+	$validFiles = glob( dirname(__FILE__) . "/creatives/*.png" );
+	$validFiles = array_merge( $validFiles , glob( dirname(__FILE__) . "/creatives/*.gif" ) );
+	
 	$path = array_key_exists("path", $_REQUEST) ? $_REQUEST["path"] : basename($validFiles[ rand(0, count($validFiles) - 1) ]);	
 	$targetFile = dirname(__FILE__) . "/creatives/" . $path;	
 	

@@ -26,6 +26,7 @@ class DefaultController extends Controller
 	{
 		
 		$allFiles = glob( $this->get('kernel')->getRootDir() . '/../web/creatives/*.png' );		
+		$allFiles = array_merge( $allFiles , glob( $this->get('kernel')->getRootDir() . '/../web/creatives/*.gif' ) );		
 		
 		$files = array();
 		foreach( $allFiles as $fn ){
