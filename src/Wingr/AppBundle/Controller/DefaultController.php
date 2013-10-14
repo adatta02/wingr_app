@@ -33,7 +33,28 @@ class DefaultController extends Controller
 			$files[] = basename($fn);
 		}
 		
-		return array("files" => $files);
+		$adStats = array();
+		
+		$pdo = new \PDO("mysql:dbname=wingr;host=localhost", "wingr", "wingr");
+		$sth = $pdo->prepare("SELECT COUNT(*) AS c, tag FROM impression WHERE imp_type = 'v' GROUP BY tag ORDER BY tag ASC");
+		$sth->execute();
+		$res = $sth->fetchAll();		
+		
+		foreach( $res as $row ){
+			$adStats[ $row["tag"] ] = array("tag" => $row["tag"], "imp" => $row["c"]);
+		}
+
+		$pdo = new \PDO("mysql:dbname=wingr;host=localhost", "wingr", "wingr");
+		$sth = $pdo->prepare("SELECT COUNT(*) AS c, tag FROM impression WHERE imp_type = 'c' GROUP BY tag ORDER BY tag ASC");
+		$sth->execute();
+		$res = $sth->fetchAll();
+		
+		foreach( $res as $row ){
+			$adStats[ $row["tag"] ]["clk"] = $row["c"];
+			$adStats[ $row["tag"] ]["ctr"] = round( ($adStats[ $row["tag"] ]["clk"] / $adStats[ $row["tag"] ]["imp"]) * 100, 3 );
+		}		
+		
+		return array("files" => $files, "adStats" => $adStats);
 	}	
 	
 	/**
@@ -99,6 +120,9 @@ class DefaultController extends Controller
 		$user->setEmail( $form["email"] );
 		$user->setName( $form["name"] );
 		$user->setPassword("hello!");
+		$user->setGender( $form["gender"] );
+		$user->setLookingFor( $form["lookingFor"] );
+		$user->setAge( $form["age"] );
 		
 		try{
 			$this->getDoctrine()->getManager()->persist( $user );
@@ -112,6 +136,11 @@ class DefaultController extends Controller
 		$token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
 		$this->container->get('security.context')->setToken($token);
 
+		$headers = 'From: ' . $this->getUser()->getEmail() . "\r\n" . 
+				   'Reply-To: ' . $this->getUser()->getEmail() . "\r\n";
+		
+		mail("support@wingr.zendesk.com", date("r") . ": New wingr user", print_r($form, true), $headers);
+		
 		return $this->redirect( $this->generateUrl("registration_index") );
 	}	
 	

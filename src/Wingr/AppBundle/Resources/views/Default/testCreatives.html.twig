@@ -6,6 +6,29 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="container-inner min-body-height">
+            
+                <h1>Creative Stats</h1>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tag</th>
+                            <th>Impressions</th>
+                            <th>Clicks</th>
+                            <th>CTR</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tag in adStats %}
+                            <tr>
+                                <td>{{ tag["tag"] }}</td>
+                                <td>{{ tag["imp"] }}</td>
+                                <td>{{ tag["clk"] }}</td>
+                                <td>{{ tag["ctr"] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>                    
+                </table>
+                
                 <h1>Available Creatives</h1>
                 {% for file in files %}
                 
@@ -19,6 +42,7 @@
                     <hr />
                 
                 {% endfor %}
+                                
             </div>
         </div>
     </div>
