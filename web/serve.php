@@ -28,7 +28,7 @@ document.write("<a target='_blank' href='http://www.wingr.me/serve.php?id=$UID&i
 		setcookie("appnexus", $_REQUEST["id"]);
 	}
 
-	if( $_REQUEST["imp_type"] == "c" ){
+	if( $_REQUEST["imp_type"] == "c" && $_COOKIE["appnexus"] ){
 		$_REQUEST["id"] = $_COOKIE["appnexus"];			
 	}
 
@@ -38,6 +38,7 @@ document.write("<a target='_blank' href='http://www.wingr.me/serve.php?id=$UID&i
 						 "tag" => $_REQUEST["served"], "imp_type" => $_REQUEST["imp_type"], 
 					     "user_agent" => $_SERVER["HTTP_USER_AGENT"], "url" => $_REQUEST["url"]) );
 	
+		
 	if( $_REQUEST["imp_type"] == "c" ){
 		header("Location: https://wingr.me/?utm_source=fifty&utm_medium=banner&utm_content=" . $_REQUEST["served"] . "&utm_campaign=POF");
 		die();
