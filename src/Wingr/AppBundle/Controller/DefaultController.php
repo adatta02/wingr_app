@@ -159,7 +159,9 @@ class DefaultController extends Controller
 			return $this->render('WingrAppBundle:Default:indexTwo.html.twig', array());
 		}
 		
-		return array();
+		$source = $this->getRequest()->get("utm_content", "direct");
+		
+		return array("source" => $source);
 	}	
 	
 	/**

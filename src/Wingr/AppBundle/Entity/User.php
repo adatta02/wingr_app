@@ -56,9 +56,9 @@ class User extends BaseUser
     private $isPaid = false;    
     
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="gender", type="integer", length=1, nullable=true)
+     * @ORM\Column(name="gender", type="string", length=12, nullable=true)
      */
     private $gender;    
 
@@ -70,19 +70,25 @@ class User extends BaseUser
     private $age;    
     
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="looking_for", type="integer", length=1, nullable=true)
+     * @ORM\Column(name="looking_for", type="string", length=12, nullable=true)
      */
     private $lookingFor;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source", type="string", length=12, nullable=true)
+     */
+    private $source;    
+    
     /**
      * @var array
      *
      * @ORM\Column(name="interested_in", type="json_array", nullable=true)
      */
-    private $interestedIn;
-    
+    private $interestedIn;    
     
     /**
      * @var DateTime
@@ -313,5 +319,28 @@ class User extends BaseUser
     public function setAge($v){
     	$this->age = $v;
     	return $this;
+    }
+
+    /**
+     * Set source
+     *
+     * @param string $source
+     * @return User
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+    
+        return $this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return string 
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 }
